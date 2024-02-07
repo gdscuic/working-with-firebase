@@ -9,27 +9,50 @@ import {
 import { db, firestore, auth } from "./firebase.js";
 import { clearQuestionList, addQuestionToList, setUserNameOnQuestion } from "./utils.js";
 
-//
-// TODO create a reference to the questions list in the database
-//
+const questionsListRef = ref(db, "questions");
 
 // this function gets passed the question text from the form
 // this is where we'll add it to the database
-//
 function handleQuestionSubmission(questionText) {
-  // TODO use the push function to add the question to the database
-  // the questions should have the following fields:
-  // - text: the question text
-  // - timestamp: the current server time
-  // 
+  // get user
+  const user = auth.currentUser;
+
+  const dataToSet = {
+    text: questionText,
+    timestamp: serverTimestamp(),
+    userId: user.uid,
+  };
+
+  push(questionsListRef, dataToSet).catch((err) => {
+    console.error("ERROR SUBMITTING QUESTION", err);
+    alert("Error submitting question");
+  });
 }
 
 // grab questions from database and update the ui
-// 
-// TODO use onValue to grab the questions from the database
-// https://firebase.google.com/docs/database/web/read-and-write#read_data
-// clear the question list to reset the UI and then add each question to the list
-//
+onValue(questionsListRef, (snapshot) => {
+  if (!snapshot.exists()) {
+    return;
+  }
+  clearQuestionList();
+
+  const questions = snapshot.val();
+  console.log("QUESTIONS", questions);
+  const questionIds = Object.keys(questions);
+
+  questionIds.forEach((questionId) => {
+    const question = questions[questionId];
+
+    if (question.userId) {
+      get(ref(db, "users/" + question.userId)).then((snapshot) => {
+        const user = snapshot.val();
+        setUserNameOnQuestion(questionId, user.name);
+      });
+    }
+
+    addQuestionToList(questionId, question.text, question.timestamp);
+  });
+});
 
 // ===== already implemented stuff
 //
