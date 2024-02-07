@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firebase Q&A</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <pre id="devspace"></pre>
+    <div id="layout">
+      <aside>
+        <div id="template-user-card" class="user-card" style="--user-color: #ff3e3e">
+          <div class="profile-picture"></div>
+          <p class="username-field">me</p>
+        </div>
+
+        <form id="user-profile-editor">
+          <p class="card-title">Your Profile</p>
+
+          <div class="input-wrapper">
+            <label for="username-input">Name</label>
+            <input type="text" id="username-input" />
+          </div>
+
+          <div class="input-wrapper">
+            <label for="user-color-input">Color</label>
+            <input type="color" id="user-color-input" />
+          </div>
+
+          <button type="submit">Save</button>
+        </form>
+
+        <div id="google-profile-wrapper">
+          <button id="google-signin-button">Sign in with Google</button>
+          <p id="google-name"></p>
+          <p id="google-email"></p>
+          <button id="google-signout-button">Sign out</button>
+        </div>
+
+        <div id="user-list-wrapper">
+          <div id="user-list"></div>
+        </div>
+      </aside>
+      <main>
+        <header>
+          <p class="event-name">Working with Firebase</p>
+          <p class="event-subtitle">Q&A</p>
+        </header>
+        <form id="question-form">
+          <textarea id="question-input" placeholder="Enter your question"></textarea>
+          <button type="submit" id="ask-button">Ask</button>
+        </form>
+
+        <div id="template-question-card" class="question-card">
+          <p class="question-timestamp">12 minutes ago</p>
+          <p class="question-name">Anonymous asks:</p>
+          <p class="question-text">How to make a website?</p>
+        </div>
+
+        <div id="question-grid"></div>
+      </main>
+    </div>
+
+    <script src="./firebase.js" type="module"></script>
+    <script src="./utils.js" type="module"></script>
+    <script src="./questions.js" type="module"></script>
+    <script src="./profile.js" type="module"></script>
+  </body>
+</html>

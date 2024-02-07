@@ -1,0 +1,278 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --radius: 1rem;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #fff;
+  background-color: #111;
+}
+
+p {
+  margin-top: 0;
+}
+
+#layout {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+#layout > aside {
+  position: sticky;
+  left: 0;
+  top: 3rem;
+  height: 100vh;
+  margin: 3rem;
+}
+
+#user-list-wrapper {
+  overflow: hidden;
+  height: 50vh;
+
+  min-width: 300px;
+
+  background-color: #222;
+  padding: 2rem;
+  border-radius: var(--radius);
+  padding-right: calc(2rem - 8px);
+}
+
+#user-list {
+  overflow: auto;
+  height: 100%;
+  padding-right: calc(1rem - 8px);
+}
+
+#user-profile-editor {
+  background-color: #192330;
+  padding: 2rem;
+  border-radius: var(--radius);
+  margin-bottom: 3rem;
+}
+
+#user-profile-editor .card-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+#user-profile-editor .input-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+#user-profile-editor .input-wrapper label {
+  margin-bottom: 0.5rem;
+}
+
+#user-profile-editor .input-wrapper input {
+  padding: 1rem;
+  background-color: #0a111a;
+  color: #fff;
+  border-radius: var(--radius);
+  border: none;
+  font-size: 1.5rem;
+}
+
+#user-profile-editor .input-wrapper input[type="color"] {
+  padding: 0;
+  width: 100%;
+  height: 3rem;
+  border: none;
+  cursor: pointer;
+  background-color: initial;
+}
+
+#user-profile-editor button {
+  padding: 1rem;
+  background-color: #395272;
+  border-radius: var(--radius);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+#google-profile-wrapper {
+  background-color: #192330;
+  padding: 2rem;
+  border-radius: var(--radius);
+  margin-bottom: 3rem;
+  display: none;
+}
+
+#layout > main {
+  flex: 1;
+  /* padding: 2rem; */
+  margin: 3rem;
+  margin-left: 0;
+}
+
+#user-list::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+#user-list::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background-color: #222;
+}
+
+#user-list::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 4px;
+}
+
+#user-list::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #777;
+}
+
+#template-user-card,
+#template-question-card {
+  display: none;
+}
+
+.user-card {
+  --hue-rotate: 240deg;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #444;
+  gap: 1rem;
+  border-radius: var(--radius);
+
+  filter: invert(1) hue-rotate(var(--hue-rotate));
+  background-image: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0),
+    color-mix(in srgb, var(--user-color), transparent 10%)
+  );
+}
+
+.user-card .profile-picture {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--user-color);
+  filter: invert(1) hue-rotate(calc(-1 * var(--hue-rotate)));
+}
+
+.user-card p {
+  margin: 0;
+}
+
+main header {
+  margin-bottom: 1rem;
+  /* 4 color mesh gradient using white, yellow, light red, and light blue */
+  padding: 3rem;
+  padding-bottom: 5rem;
+  border-radius: var(--radius);
+
+  /* shoutouts to https://www.csshero.org/mesher/ */
+  background: linear-gradient(353deg, rgb(14 25 39) 0%, rgb(44 69 89) 100%);
+}
+
+.event-name {
+  font-size: 4rem;
+
+  margin-bottom: 0.3rem;
+}
+
+.event-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+#question-grid {
+  /* display: grid; */
+  /* grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); */
+  gap: 1rem;
+}
+
+.question-card {
+  padding: 2rem;
+  margin-bottom: 1rem;
+  background-color: #444;
+  border-radius: var(--radius);
+}
+
+.question-card .question-text {
+  font-size: 2rem;
+  margin-bottom: 0;
+}
+
+.question-card .question-timestamp {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+  opacity: 0.5;
+}
+
+#question-form {
+  padding: 2rem;
+  margin-bottom: 1rem;
+  background-color: #172331;
+  border-radius: var(--radius);
+}
+
+#question-form textarea {
+  width: 100%;
+  height: 10rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #0a111a;
+  color: #fff;
+  border-radius: var(--radius);
+  border: none;
+  resize: none;
+  font-size: 1.5rem;
+}
+
+#question-form button {
+  padding: 1rem;
+  background-color: #395272;
+  border-radius: var(--radius);
+  border: none;
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+#question-form button:hover {
+  background-color: #4e6a8c;
+}
+
+button {
+  padding: 1rem;
+  background-color: #395272;
+  border-radius: var(--radius);
+  border: none;
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* hide by default while auth state loads */
+#google-signin-button,
+#google-signout-button {
+  display: none;
+}
+
+#google-name {
+  font-size: 2rem;
+  margin-bottom: 0.3rem;
+}
