@@ -14,13 +14,9 @@ const questionsListRef = ref(db, "questions");
 // this function gets passed the question text from the form
 // this is where we'll add it to the database
 function handleQuestionSubmission(questionText) {
-  // get user
-  const user = auth.currentUser;
-
   const dataToSet = {
     text: questionText,
     timestamp: serverTimestamp(),
-    userId: user.uid,
   };
 
   push(questionsListRef, dataToSet).catch((err) => {
@@ -34,6 +30,7 @@ onValue(questionsListRef, (snapshot) => {
   if (!snapshot.exists()) {
     return;
   }
+
   clearQuestionList();
 
   const questions = snapshot.val();
@@ -42,13 +39,6 @@ onValue(questionsListRef, (snapshot) => {
 
   questionIds.forEach((questionId) => {
     const question = questions[questionId];
-
-    if (question.userId) {
-      get(ref(db, "users/" + question.userId)).then((snapshot) => {
-        const user = snapshot.val();
-        setUserNameOnQuestion(questionId, user.name);
-      });
-    }
 
     addQuestionToList(questionId, question.text, question.timestamp);
   });
